@@ -5,7 +5,8 @@
         itemView: TodoItemView,
 
         collectionEvents: {
-            //"add":"render"
+            "add": "collectionItemsChanged",
+            "remove":"collectionItemsChanged"
         },
 
         initialize: function (options) {
@@ -15,6 +16,11 @@
 
         addTodo: function (todoText) {
             this.collection.push({ todoText: todoText });
+        },
+
+        collectionItemsChanged: function () {
+            controller.vent.trigger("todosUpdated", this.collection);
+            console.log("Todos Updated");
         },
 
         onClose: function () {

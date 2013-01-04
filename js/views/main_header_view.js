@@ -1,5 +1,5 @@
-﻿define(["marionette", "hbs!templates/header", "./../controller"], function (Marionette, headerTemplate, controller) {
-    var HeaderView = Marionette.ItemView.extend({
+﻿define(["marionette", "hbs!templates/main_header", "./../controller"], function (Marionette, headerTemplate, controller) {
+    var MainHeaderView = Marionette.ItemView.extend({
         template: headerTemplate,
         ui: {
             "input": "#new-todo"
@@ -20,5 +20,5 @@
 
     });
 
-    return HeaderView;
+    return MainHeaderView;
 });

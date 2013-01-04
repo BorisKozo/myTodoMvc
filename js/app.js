@@ -1,17 +1,25 @@
-﻿define(['marionette', 'js/views/header_view', 'js/views/footer_view', 'js/views/main_layout_view'], function (Marionette, HeaderView, FooterView, MainLayoutView) {
-    App = new Marionette.Application();
+﻿define(['require','marionette', 'js/views/main_header_view', 'js/views/main_content_view', 'js/views/main_footer_view', 'js/views/footer_view'], function (require, Marionette) {
+
+    var App = new Marionette.Application(),
+
+    MainHeaderView = require('js/views/main_header_view'),
+    MainContentView = require('js/views/main_content_view'),
+    MainFooterView = require('js/views/main_footer_view'),
+    FooterView = require('js/views/footer_view');
 
     App.addRegions({
-        header: "#header",
-        content: "#content",
-        footer: "#footer"
+        main_header: "#header",
+        main_content: "#main",
+        main_footer: "#footer",
+        footer: "#info"
     });
 
     //Backbone.History.start();
     App.addInitializer(function (options) {
-        App.header.show(new HeaderView());
+        App.main_header.show(new MainHeaderView());
+        App.main_content.show(new MainContentView());
+        App.main_footer.show(new MainFooterView());
         App.footer.show(new FooterView());
-        App.content.show(new MainLayoutView());
     });
 
     
