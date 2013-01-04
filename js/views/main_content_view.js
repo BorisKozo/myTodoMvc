@@ -9,9 +9,14 @@
             "remove":"collectionItemsChanged"
         },
 
+        ui: {
+            "toggleAll":"#toggle-all"
+        },
+
         initialize: function (options) {
             this.collection = new TodoItemCollection();
             controller.vent.on("todoTextReady", this.addTodo, this);
+            controller.vent.on("todosUpdated", this.todosUpdated, this);
         },
 
         addTodo: function (todoText) {
@@ -20,7 +25,10 @@
 
         collectionItemsChanged: function () {
             controller.vent.trigger("todosUpdated", this.collection);
-            console.log("Todos Updated");
+        },
+
+        todosUpdated: function () {
+
         },
 
         onClose: function () {
