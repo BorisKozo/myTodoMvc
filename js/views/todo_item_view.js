@@ -1,4 +1,4 @@
-﻿define(["marionette", "hbs!templates/todo_item", "./../controller"], function (Marionette, todoItemTemplate, controller) {
+﻿define(["marionette", "hbs!templates/todo_item"], function (Marionette, todoItemTemplate) {
     var TodoItem = Marionette.ItemView.extend({
         template: todoItemTemplate,
         tagName: "li",
@@ -6,21 +6,14 @@
         events: {
             "change .toggle": "finishClicked",
             "click .destroy": "deleteClicked",
-            "dblclick .view": "editClicked",
+            "dblclick .view > label": "editClicked",
             "focusout .edit": "editFocusout",
-            'keypress .edit': 'inputKeypress'
+            'keydown .edit': 'inputKeypress'
         },
 
         ui: {
             "finishedCheckbox": ".toggle",
             "input": ".edit"
-        },
-
-        serializeData: function () {
-            return {
-                todoText: this.model.get("todoText"),
-                isFinished: this.model.get("isFinished")
-            }
         },
 
         finishClicked: function (e) {
@@ -30,8 +23,8 @@
                 this.$el.removeClass("active").addClass("completed");
             } else {
                 this.$el.addClass("active").removeClass("completed");
-
             }
+            this.model.collection.trigger("finishChanged", this.model);
         },
 
         deleteClicked: function () {
@@ -53,9 +46,13 @@
         },
 
         inputKeypress: function (e) {
-            var ENTER_KEY = 13;
+            var ENTER_KEY = 13, ESC_KEY = 27;
             if (e.which === ENTER_KEY) {
                 this.editFocusout();
+                return;
+            }
+            if (e.which === ESC_KEY) {
+                this.$el.removeClass("editing");
             }
         }
 

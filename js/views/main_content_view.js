@@ -6,7 +6,8 @@
 
         collectionEvents: {
             "add": "collectionItemsChanged",
-            "remove":"collectionItemsChanged"
+            "remove": "collectionItemsChanged",
+            "finishChanged":"collectionItemsChanged"
         },
 
         ui: {
