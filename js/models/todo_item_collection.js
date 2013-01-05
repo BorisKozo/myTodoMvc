@@ -1,7 +1,12 @@
-﻿define(["backbone","./todo_item"], function (Backbone,TodoItem) {
-    var TodoItem = Backbone.Collection.extend({
-       // model:TodoItem
+﻿define(["backbone"], function (Backbone) {
+    var TodoItemCollection = Backbone.Collection.extend({
+        setFinished: function (value) {
+            this.each(function (item) {
+                item.set("isFinished", value);
+            });
+            this.trigger("finishChanged");
+        }
     });
 
-    return TodoItem;
+    return TodoItemCollection;
 });

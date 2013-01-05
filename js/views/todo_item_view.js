@@ -17,15 +17,24 @@
             
         },
 
+        modelEvents: {
+            "change:isFinished": "finishChanged"
+        },
+
         finishClicked: function (e) {
             var finishState = e.target.checked;
             this.model.set("isFinished", finishState);
+            this.model.collection.trigger("finishChanged");
+        },
+
+        finishChanged: function (model) {
+            var finishState = model.get("isFinished");
             if (finishState) {
                 this.$el.removeClass("active").addClass("completed");
             } else {
                 this.$el.addClass("active").removeClass("completed");
             }
-            this.model.collection.trigger("finishChanged", this.model);
+            this.ui.finishedCheckbox.prop("checked", finishState);
         },
 
         deleteClicked: function () {
