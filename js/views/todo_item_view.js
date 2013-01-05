@@ -46,6 +46,8 @@
                 this.model.set("todoText", todoText);
                 this.$el.removeClass("editing");
                 this.render();
+            } else {
+                this.deleteClicked();
             }
         },
 
