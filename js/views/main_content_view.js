@@ -17,7 +17,7 @@
         initialize: function (options) {
             this.collection = new TodoItemCollection();
             controller.vent.on("todoTextReady", this.addTodo, this);
-            controller.vent.on("todosUpdated", this.todosUpdated, this);
+            controller.vent.on("clearCompleted", this.clearCompleted, this);
         },
 
         addTodo: function (todoText) {
@@ -28,9 +28,14 @@
             controller.vent.trigger("todosUpdated", this.collection);
         },
 
-        todosUpdated: function () {
+        clearCompleted: function () {
+            var toRemove = this.collection.filter(function (item) {
+                return item.get("isFinished");
+            });
 
+            this.collection.remove(toRemove);
         },
+
 
         onClose: function () {
             controller.vent.off(null, null, this);

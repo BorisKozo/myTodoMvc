@@ -14,6 +14,7 @@
         ui: {
             "finishedCheckbox": ".toggle",
             "input": ".edit"
+            
         },
 
         finishClicked: function (e) {
