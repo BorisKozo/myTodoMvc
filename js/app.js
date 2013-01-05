@@ -1,4 +1,5 @@
-﻿define(['marionette', 'js/views/main_layout_view','js/views/footer_view'], function (Marionette, MainLayoutView, FooterView) {
+﻿define(['backbone', 'marionette', './router', 'js/views/main_layout_view', 'js/views/footer_view'],
+    function (Backbone, Marionette, router, MainLayoutView, FooterView) {
 
     var App = new Marionette.Application();
 
@@ -11,8 +12,9 @@
     App.addInitializer(function (options) {
         App.section.show(new MainLayoutView());
         App.footer.show(new FooterView());
+        Backbone.history.start();
     });
 
-    
+
     return App;
 });

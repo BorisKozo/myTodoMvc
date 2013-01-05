@@ -37,8 +37,5 @@ require([
     "marionette",
     "js/app"
 ], function (Marionette, App) {
-    //Backbone.Marionette.TemplateCache.prototype.compileTemplate = function (template) {
-    //    return template;
-    //}
     App.start();
 });

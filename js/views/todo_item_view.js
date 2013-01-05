@@ -1,4 +1,5 @@
-﻿define(["marionette", "hbs!templates/todo_item"], function (Marionette, todoItemTemplate) {
+﻿define(["marionette", "hbs!templates/todo_item","./../controller"], function (Marionette, todoItemTemplate,controller) {
+
     var TodoItem = Marionette.ItemView.extend({
         template: todoItemTemplate,
         tagName: "li",
@@ -14,27 +15,21 @@
         ui: {
             "finishedCheckbox": ".toggle",
             "input": ".edit"
-            
         },
 
         modelEvents: {
-            "change:isFinished": "finishChanged"
+            "change:isFinished": "render"
+        },
+
+        initialize: function(){
+            controller.vent.on("displayModeChanged", this.displayModeChanged, this);
+            this.displayMode = controller.displayModes.all;
         },
 
         finishClicked: function (e) {
             var finishState = e.target.checked;
             this.model.set("isFinished", finishState);
             this.model.collection.trigger("finishChanged");
-        },
-
-        finishChanged: function (model) {
-            var finishState = model.get("isFinished");
-            if (finishState) {
-                this.$el.removeClass("active").addClass("completed");
-            } else {
-                this.$el.addClass("active").removeClass("completed");
-            }
-            this.ui.finishedCheckbox.prop("checked", finishState);
         },
 
         deleteClicked: function () {
@@ -64,6 +59,37 @@
             if (e.which === ESC_KEY) {
                 this.$el.removeClass("editing");
             }
+        },
+
+        displayModeChanged: function (state) {
+            this.displayMode = state;
+            this.render();
+        },
+
+        onRender: function () {
+            var finishState = this.model.get("isFinished");
+
+            this.$el.removeClass("hidden");
+
+            if (this.displayMode === controller.displayModes.active && this.model.get("isFinished")) {
+                this.$el.addClass("hidden");
+            }
+
+            if (this.displayMode === controller.displayModes.completed && !this.model.get("isFinished")) {
+                this.$el.addClass("hidden");
+            }
+
+            if (finishState) {
+                this.$el.removeClass("active").addClass("completed");
+            } else {
+                this.$el.addClass("active").removeClass("completed");
+            }
+            this.ui.finishedCheckbox.prop("checked", finishState);
+
+        },
+
+        onClose: function () {
+            controller.vent.off(null, null, this);
         }
 
     });
