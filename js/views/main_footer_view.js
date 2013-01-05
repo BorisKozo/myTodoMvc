@@ -6,9 +6,8 @@
             this.unfinishedItemsCount = 0;
             this.finishedItemsCount = 0;
             this.itemString = "items";
-            this.displayMode = controller.displayModes.all;
             controller.vent.on("todosUpdated", this.updateData, this);
-            controller.vent.on("displayModeChanged", this.displayModeChanged, this);
+            controller.vent.on("displayModeChanged", this.render, this);
         },
 
         ui: {
@@ -54,10 +53,6 @@
             controller.vent.trigger("clearCompleted");
         },
 
-        displayModeChanged: function (displayMode) {
-            this.displayMode = displayMode;
-            this.render();
-        },
 
         onRender: function () {
             if (this.finishedItemsCount > 0) {
@@ -70,17 +65,17 @@
             this.ui.activeFilter.removeClass("selected");
             this.ui.completedFilter.removeClass("selected");
 
-            if (this.displayMode === controller.displayModes.all) {
+            if (controller.displayMode === controller.displayModes.all) {
                 this.ui.allFilter.addClass("selected");
                 return;
             }
 
-            if (this.displayMode === controller.displayModes.active) {
+            if (controller.displayMode === controller.displayModes.active) {
                 this.ui.activeFilter.addClass("selected");
                 return;
             }
 
-            if (this.displayMode === controller.displayModes.completed) {
+            if (controller.displayMode === controller.displayModes.completed) {
                 this.ui.completedFilter.addClass("selected");
                 return;
             }

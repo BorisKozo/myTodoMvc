@@ -10,15 +10,18 @@
         },
 
         displayModeAll: function () {
-            this.vent.trigger("displayModeChanged", this.displayModes.all);
+            this.displayMode = this.displayModes.all;
+            this.vent.trigger("displayModeChanged", this.displayMode);
         },
 
         displayModeActive: function () {
-            this.vent.trigger("displayModeChanged", this.displayModes.active);
+            this.displayMode = this.displayModes.active;
+            this.vent.trigger("displayModeChanged", this.displayMode);
         },
 
         displayModeCompleted: function () {
-            this.vent.trigger("displayModeChanged", this.displayModes.completed);
+            this.displayMode = this.displayModes.completed;
+            this.vent.trigger("displayModeChanged", this.displayMode);
         }
 
     });

@@ -22,8 +22,7 @@
         },
 
         initialize: function(){
-            controller.vent.on("displayModeChanged", this.displayModeChanged, this);
-            this.displayMode = controller.displayModes.all;
+            controller.vent.on("displayModeChanged", this.render, this);
         },
 
         finishClicked: function (e) {
@@ -61,21 +60,16 @@
             }
         },
 
-        displayModeChanged: function (state) {
-            this.displayMode = state;
-            this.render();
-        },
-
         onRender: function () {
             var finishState = this.model.get("isFinished");
 
             this.$el.removeClass("hidden");
 
-            if (this.displayMode === controller.displayModes.active && this.model.get("isFinished")) {
+            if (controller.displayMode === controller.displayModes.active && this.model.get("isFinished")) {
                 this.$el.addClass("hidden");
             }
 
-            if (this.displayMode === controller.displayModes.completed && !this.model.get("isFinished")) {
+            if (controller.displayMode === controller.displayModes.completed && !this.model.get("isFinished")) {
                 this.$el.addClass("hidden");
             }
 
