@@ -1,8 +1,11 @@
-﻿define(["marionette", "hbs!templates/main_header", "./../controller"], function (Marionette, headerTemplate, controller) {
+﻿/*global define*/
+'use strict';
+
+define(['marionette', 'hbs!templates/main_header', './../controller'], function (Marionette, headerTemplate, controller) {
     var MainHeaderView = Marionette.ItemView.extend({
         template: headerTemplate,
         ui: {
-            "input": "#new-todo"
+            'input': '#new-todo'
         },
         events: {
             'keypress #new-todo': 'inputKeypress'
@@ -13,7 +16,7 @@
              todoText = this.ui.input.val().trim();
 
             if (e.which === ENTER_KEY && todoText) {
-                controller.vent.trigger("todoTextReady", todoText);
+                controller.vent.trigger('todoTextReady', todoText);
                 this.ui.input.val('');
             }
         }

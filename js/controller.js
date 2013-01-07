@@ -1,27 +1,30 @@
-﻿define(["backbone","marionette"], function (Backbone, Marionette) {
+﻿/*global define*/
+'use strict';
+
+define(['backbone', 'marionette', 'underscore'], function (Backbone, Marionette, _) {
 
     var Controller = Marionette.Controller.extend({
         vent: _.extend({}, Backbone.Events),
 
         displayModes: {
-            all: "All",
-            active: "Active",
-            completed: "Completed"
+            all: 'All',
+            active: 'Active',
+            completed: 'Completed'
         },
 
         displayModeAll: function () {
             this.displayMode = this.displayModes.all;
-            this.vent.trigger("displayModeChanged", this.displayMode);
+            this.vent.trigger('displayModeChanged', this.displayMode);
         },
 
         displayModeActive: function () {
             this.displayMode = this.displayModes.active;
-            this.vent.trigger("displayModeChanged", this.displayMode);
+            this.vent.trigger('displayModeChanged', this.displayMode);
         },
 
         displayModeCompleted: function () {
             this.displayMode = this.displayModes.completed;
-            this.vent.trigger("displayModeChanged", this.displayMode);
+            this.vent.trigger('displayModeChanged', this.displayMode);
         }
 
     });

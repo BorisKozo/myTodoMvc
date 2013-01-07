@@ -1,5 +1,8 @@
-﻿requirejs.config({
-    baseUrl: "/",
+﻿/*global requirejs*/
+'use strict';
+
+requirejs.config({
+    baseUrl: '/',
     waitSeconds: 3000,
     shim: {
         'underscore': {
@@ -34,8 +37,8 @@
 });
 
 require([
-    "marionette",
-    "js/app"
+    'marionette',
+    'js/app'
 ], function (Marionette, App) {
     App.start();
 });

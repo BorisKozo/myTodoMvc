@@ -1,10 +1,13 @@
-﻿define(["backbone"], function (Backbone) {
+﻿/*global define*/
+'use strict';
+
+define(['backbone'], function (Backbone) {
     var TodoItemCollection = Backbone.Collection.extend({
         setFinished: function (value) {
             this.each(function (item) {
-                item.set("isFinished", value);
+                item.set('isFinished', value);
             });
-            this.trigger("finishChanged");
+            this.trigger('finishChanged');
         }
     });
 
