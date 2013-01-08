@@ -1,8 +1,7 @@
 ﻿/*global define*/
-'use strict';
 
 define(['backbone', 'marionette', 'underscore'], function (Backbone, Marionette, _) {
-
+    'use strict';
     var Controller = Marionette.Controller.extend({
         vent: _.extend({}, Backbone.Events),
 

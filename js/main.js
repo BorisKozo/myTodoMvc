@@ -12,6 +12,10 @@ requirejs.config({
             deps: ['underscore', 'jquery'],
             exports: 'Backbone'
         },
+        'localstorage': {
+            deps: ['underscore', 'backbone'],
+            exports: 'LocalStorage'
+        },
         'marionette': {
             deps: ['backbone', 'jquery'],
             exports: 'Marionette'
@@ -22,14 +26,15 @@ requirejs.config({
 
     },
     paths: {
-        jquery: 'lib/jquery',
-        underscore: 'lib/underscore',
-        backbone: 'lib/backbone',
-        marionette: 'lib/backbone.marionette',
-        handlebars: 'lib/handlebars',
-        i18nprecompile: 'lib/i18nprecompile',
-        json2: 'lib/json2',
-        hbs: 'lib/hbs'
+        'jquery': 'lib/jquery',
+        'underscore': 'lib/underscore',
+        'backbone': 'lib/backbone',
+        'localstorage': 'lib/backbone.localstorage',
+        'marionette': 'lib/backbone.marionette',
+        'handlebars': 'lib/handlebars',
+        'i18nprecompile': 'lib/i18nprecompile',
+        'json2': 'lib/json2',
+        'hbs': 'lib/hbs'
     },
     hbs: {
         disableI18n: true

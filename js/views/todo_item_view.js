@@ -1,8 +1,7 @@
 ﻿/*global define*/
-'use strict';
 
 define(['marionette', 'hbs!templates/todo_item', './../controller'], function (Marionette, todoItemTemplate, controller) {
-
+    'use strict';
     var TodoItem = Marionette.ItemView.extend({
         template: todoItemTemplate,
         tagName: 'li',

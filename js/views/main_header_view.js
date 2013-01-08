@@ -1,7 +1,8 @@
 ﻿/*global define*/
-'use strict';
+
 
 define(['marionette', 'hbs!templates/main_header', './../controller'], function (Marionette, headerTemplate, controller) {
+    'use strict';
     var MainHeaderView = Marionette.ItemView.extend({
         template: headerTemplate,
         ui: {

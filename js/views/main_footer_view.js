@@ -1,7 +1,7 @@
 ﻿/*global define*/
-'use strict';
 
 define(['marionette', 'underscore', 'hbs!templates/main_footer', './../controller'], function (Marionette, _, footerTemplate, controller) {
+    'use strict';
     var FooterView = Marionette.ItemView.extend({
         template: footerTemplate,
         initialize: function () {
