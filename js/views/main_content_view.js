@@ -1,8 +1,8 @@
 ﻿/*global define*/
 
 
-define(['marionette', 'hbs!templates/main_content', './todo_item_view', './../models/todo_item_collection', './../controller'],
-    function (Marionette, contentTemplate, TodoItemView, TodoItemCollection, controller) {
+define(['backbone', 'marionette', 'underscore', 'hbs!templates/main_content', './todo_item_view', './../models/todo_item_collection', './../controller'],
+    function (Backbone, Marionette, _, contentTemplate, TodoItemView, TodoItemCollection, controller) {
         'use strict';
         var ContentView = Marionette.CompositeView.extend({
             template: contentTemplate,
@@ -10,10 +10,10 @@ define(['marionette', 'hbs!templates/main_content', './todo_item_view', './../mo
             itemView: TodoItemView,
 
             collectionEvents: {
-                'add': 'collectionItemsChanged',
-                'remove': 'collectionItemsChanged',
-                'reset': 'collectionItemsChanged',
-                'finishChanged': 'collectionItemsChanged'
+                'add': 'todoAdded',
+                'remove': 'todoRemoved',
+                'reset': 'collectionLoaded',
+                'finishChanged': 'collectionUpdated'
             },
 
             ui: {
@@ -26,12 +26,6 @@ define(['marionette', 'hbs!templates/main_content', './todo_item_view', './../mo
 
             initialize: function () {
                 var _this = this;
-                this.collection = new TodoItemCollection();
-                this.collection.fetch({
-                    success: function () {
-                        _this.collectionItemsChanged();
-                    }
-                });
                 controller.vent.on('todoTextReady', this.addTodo, this);
                 controller.vent.on('clearCompleted', this.clearCompleted, this);
                 controller.vent.on('todosUpdated', this.todosUpdated, this);
@@ -41,8 +35,25 @@ define(['marionette', 'hbs!templates/main_content', './todo_item_view', './../mo
                 this.collection.push({ todoText: todoText });
             },
 
-            collectionItemsChanged: function () {
-                controller.vent.trigger('todosUpdated', this.collection);
+            todoAdded: function (model, collection) {
+                controller.vent.trigger('todosUpdated', { added: [model], collection: collection });
+                Backbone.sync('create', model);
+            },
+
+            todoRemoved: function (model, collection) {
+                controller.vent.trigger('todosUpdated', { removed: [model], collection: collection });
+                Backbone.sync('delete', model);
+            },
+
+            collectionLoaded: function (collection) {
+                controller.vent.trigger('todosUpdated', { collection: collection });
+            },
+
+            collectionUpdated: function (models, collection) {
+                controller.vent.trigger('todosUpdated', { updated: models, collection: collection });
+                _.each(models, function (model) {
+                    model.save();
+                });
             },
 
             clearCompleted: function () {
@@ -53,14 +64,12 @@ define(['marionette', 'hbs!templates/main_content', './todo_item_view', './../mo
                 this.collection.remove(toRemove);
             },
 
-            todosUpdated: function (collection) {
-                var hasUnfinished = collection.some(function (item) {
+            todosUpdated: function (data) {
+                var hasUnfinished = data.collection.some(function (item) {
                     return !item.get('isFinished');
                 });
 
                 this.ui.toggleAll.prop('checked', !hasUnfinished);
-
-                collection.save();
             },
 
             toggleAll: function () {

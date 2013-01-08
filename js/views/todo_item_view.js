@@ -30,7 +30,7 @@ define(['marionette', 'hbs!templates/todo_item', './../controller'], function (M
         finishClicked: function (e) {
             var finishState = e.target.checked;
             this.model.set('isFinished', finishState);
-            this.model.collection.trigger('finishChanged');
+            this.model.collection.trigger('finishChanged', [this.model], this.model.collection);
         },
 
         deleteClicked: function () {

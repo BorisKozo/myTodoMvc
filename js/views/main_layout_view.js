@@ -21,15 +21,15 @@ define(['marionette', 'hbs!templates/main_layout', 'js/views/main_header_view', 
                 this.isDataVisible = false;
             },
 
-            updateFooter: function (todos) {
-                if (todos.length === 0 && this.isDataVisible) {
+            updateFooter: function (data) {
+                if (data.collection.length === 0 && this.isDataVisible) {
                     this.ui.footer.hide(SlideAnimationDuration);
                     this.ui.content.hide(SlideAnimationDuration);
                     this.isDataVisible = false;
                     return;
                 }
 
-                if (!this.isDataVisible && todos.length > 0) {
+                if (!this.isDataVisible && data.collection.length > 0) {
                     this.ui.footer.show(SlideAnimationDuration);
                     this.ui.content.show(SlideAnimationDuration);
                     this.isDataVisible = true;
@@ -38,7 +38,7 @@ define(['marionette', 'hbs!templates/main_layout', 'js/views/main_header_view', 
 
             onRender: function () {
                 this.header.show(new MainHeaderView());
-                this.content.show(new MainContentView());
+                this.content.show(new MainContentView({ collection: controller.todosCollection }));
                 this.footer.show(new MainFooterView());
             },
 

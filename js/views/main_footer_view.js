@@ -32,16 +32,16 @@ define(['marionette', 'underscore', 'hbs!templates/main_footer', './../controlle
             };
         },
 
-        updateData: function (collection) {
+        updateData: function (data) {
             var count = 0;
-            collection.each(function (todo) {
+            data.collection.each(function (todo) {
                 if (!todo.get('isFinished')) {
                     count += 1;
                 }
             });
 
             this.unfinishedItemsCount = count;
-            this.finishedItemsCount = collection.length - count;
+            this.finishedItemsCount = data.collection.length - count;
 
             if (this.unfinishedItemsCount === 1) {
                 this.itemString = 'item';

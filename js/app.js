@@ -1,8 +1,7 @@
 ﻿/*global define*/
 
-
-define(['backbone', 'marionette', './router', 'js/views/main_layout_view', 'js/views/footer_view'],
-    function (Backbone, Marionette, router, MainLayoutView, FooterView) {
+define(['backbone', 'marionette', './router','./controller', 'js/views/main_layout_view', 'js/views/footer_view'],
+    function (Backbone, Marionette, router, controller, MainLayoutView, FooterView) {
         'use strict';
         var App = new Marionette.Application();
 
@@ -15,6 +14,7 @@ define(['backbone', 'marionette', './router', 'js/views/main_layout_view', 'js/v
         App.addInitializer(function () {
             App.section.show(new MainLayoutView());
             App.footer.show(new FooterView());
+            controller.start();
             Backbone.history.start();
         });
 
