@@ -40,6 +40,7 @@ define(['marionette', 'hbs!templates/todo_item', './../controller'], function (M
         editClicked: function () {
             this.$el.addClass('editing');
             this.ui.input.focus();
+            this.ui.input.val(this.ui.input.val());
         },
 
         editFocusout: function () {
