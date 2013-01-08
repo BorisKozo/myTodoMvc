@@ -25,7 +25,6 @@ define(['backbone', 'marionette', 'underscore', 'hbs!templates/main_content', '.
             },
 
             initialize: function () {
-                var _this = this;
                 controller.vent.on('todoTextReady', this.addTodo, this);
                 controller.vent.on('clearCompleted', this.clearCompleted, this);
                 controller.vent.on('todosUpdated', this.todosUpdated, this);

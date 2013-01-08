@@ -1,6 +1,6 @@
 ﻿/*global define*/
 
-define(['backbone', 'marionette', './router','./controller', 'js/views/main_layout_view', 'js/views/footer_view'],
+define(['backbone', 'marionette', './router', './controller', 'js/views/main_layout_view', 'js/views/footer_view'],
     function (Backbone, Marionette, router, controller, MainLayoutView, FooterView) {
         'use strict';
         var App = new Marionette.Application();
