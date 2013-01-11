@@ -38,7 +38,7 @@ define(['marionette', 'hbs!templates/main_layout', 'js/views/main_header_view', 
 
             onRender: function () {
                 this.header.show(new MainHeaderView());
-                this.content.show(new MainContentView({ collection: controller.todosCollection }));
+                this.content.show(new MainContentView({ collection: this.options.todosCollection }));
                 this.footer.show(new MainFooterView());
             },
 

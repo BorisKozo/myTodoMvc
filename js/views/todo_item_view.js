@@ -20,7 +20,8 @@ define(['marionette', 'hbs!templates/todo_item', './../controller'], function (M
         },
 
         modelEvents: {
-            'change:isFinished': 'render'
+            'change:isFinished': 'render',
+            'change':'save'
         },
 
         initialize: function () {
@@ -63,6 +64,10 @@ define(['marionette', 'hbs!templates/todo_item', './../controller'], function (M
             if (e.which === ESC_KEY) {
                 this.$el.removeClass('editing');
             }
+        },
+
+        save: function () {
+            this.model.save();
         },
 
         onRender: function () {

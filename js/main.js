@@ -42,8 +42,7 @@ requirejs.config({
 });
 
 require([
-    'marionette',
-    'js/app'
-], function (Marionette, App) {
-    App.start();
+    'js/loader'
+], function (loader) {
+    loader.start();
 });

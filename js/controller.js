@@ -1,7 +1,7 @@
 ﻿/*global define*/
 
-define(['backbone', 'marionette', 'underscore', './models/todo_item_collection'],
-    function (Backbone, Marionette, _, TodoItemCollection) {
+define(['backbone', 'marionette', 'underscore', './app', './models/todo_item_collection'],
+    function (Backbone, Marionette, _, App, TodoItemCollection) {
         'use strict';
         var Controller = Marionette.Controller.extend({
             vent: _.extend({}, Backbone.Events),
@@ -27,10 +27,20 @@ define(['backbone', 'marionette', 'underscore', './models/todo_item_collection']
                 this.vent.trigger('displayModeChanged', this.displayMode);
             },
 
-            todosCollection: new TodoItemCollection(),
+
 
             start: function () {
-                this.todosCollection.fetch();
+                var _this = this,
+                    todosCollection = new TodoItemCollection(),
+                    todoPromise = todosCollection.fetch();
+
+                require(['js/views/main_layout_view', 'js/views/footer_view'], function (MainLayoutView, FooterView) {
+                    App.section.show(new MainLayoutView({ todosCollection: todosCollection }));
+                    App.footer.show(new FooterView());
+                    todoPromise.done(function () {
+                        _this.vent.trigger("todosUpdated", { collection: todosCollection });
+                    });
+                });
             }
 
         });
