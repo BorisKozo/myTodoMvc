@@ -42,7 +42,8 @@ requirejs.config({
 });
 
 require([
+   'js/app',
     'js/loader'
-], function (loader) {
+], function (app, loader) {
     loader.start();
 });
