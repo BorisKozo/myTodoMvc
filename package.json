@@ -1,0 +1,7 @@
+{
+  "name": "myTodoMVC",
+  "version": "0.0.1",
+  "devDependencies": {
+	"requirejs":"*"
+  }
+}
