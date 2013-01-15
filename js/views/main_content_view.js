@@ -31,17 +31,16 @@ define(['backbone', 'marionette', 'underscore', 'hbs!templates/main_content', '.
             },
 
             addTodo: function (todoText) {
-                this.collection.push({ todoText: todoText });
+                this.collection.push({ todoText: todoText }).save();
             },
 
             todoAdded: function (model, collection) {
                 controller.vent.trigger('todosUpdated', { added: [model], collection: collection });
-                Backbone.sync('create', model);
             },
 
             todoRemoved: function (model, collection) {
                 controller.vent.trigger('todosUpdated', { removed: [model], collection: collection });
-                Backbone.sync('delete', model);
+                model.destroy();
             },
 
             collectionLoaded: function (collection) {

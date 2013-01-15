@@ -1,4 +1,4 @@
 myTodoMvc
 =========
 
-My version of the famous Todo MVC project. This one is Backbone + Marionette + Handlebars with RequireJS
+A version of the famous [Todo MVC project](http://todomvc.com) using Backbone.js, Marionette.js, Handlebars and RequireJS
