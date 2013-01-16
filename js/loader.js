@@ -6,7 +6,8 @@ define(['require', './app'],
         var loader = {
             start: function () {
                 require(['./controller', './router'], function (controller) {
-                    //Load and start all the controllers
+                    //Here you should load and start *all* the controllers. Obviously in this simple application
+                    //there is only one
                     controller.start();
                     App.start();
                 });
